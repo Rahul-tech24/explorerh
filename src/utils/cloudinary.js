@@ -1,10 +1,22 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
+import dotenv from 'dotenv';
+
+// Load environment variables here in case this module is imported before
+// the application's central dotenv config runs (prevents missing api_key)
+dotenv.config();
+
+console.log("Cloudinary Config:", {
+  name: process.env.CLOUDINARY_CLOUD_NAME,
+  key: process.env.CLOUDINARY_API_KEY ? "Loaded" : "Missing",
+  secret: process.env.CLOUDINARY_API_SECRET ? "Loaded" : "Missing"
+});
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true
 });
 
 const uploadToCloudinary = async (localFilePath) => {

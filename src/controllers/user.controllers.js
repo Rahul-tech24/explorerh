@@ -10,7 +10,7 @@ const registerUser = asynchandler(async (req, res) => {
     const { fullName, username, email, password } = req.body;
     console.log(fullName, username, email, password);
 
-    if ( [fullName, username, email, password].some(field => !field.trim()==="") ) {
+    if ( [fullName, username, email, password].some(field => field?.trim() === "") ) {
         throw new ApiError(400, 'All fields are required');
     }
 
@@ -49,11 +49,11 @@ const registerUser = asynchandler(async (req, res) => {
     if (!user) {
         throw new ApiError(500, 'Failed to create user');
     }
-    res.status(201).json({ message: 'User registered successfully' });
+
+    res.status(201).json({ user: { id: user._id, fullName, username, email, avatar: avatar.secure_url, coverImage: coverImage?.secure_url || '' } });
 });
 
 export { registerUser };
 
 
-    
     
