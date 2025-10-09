@@ -1,14 +1,12 @@
 
-import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './db/index.js';
+import app from './app.js';
 
 dotenv.config({
     path: './config/.env'
 });
 
-
-const app = express();
 const PORT = process.env.PORT || 8000;
 
 connectDB()
@@ -22,3 +20,4 @@ connectDB()
     console.error("Database connection failed:", error);
     process.exit(1);
 });
+
